@@ -144,12 +144,13 @@ class KylinDialect(default.DefaultDialect):
         args.update(url.query)
         return [], args
 
-    def get_table_names(self, connection, schema=None, **kw):
-        if hasattr(connection, 'connection'):
-            conn = connection.connection
-        else:
-            conn = connection.raw_connection()
-        return conn.list_tables()
+    def get_table_names(self, engine, schema=None, **kw):
+        connection = engine.contextual_connect()
+        return connection.connection.list_tables()
+
+    def get_schema_names(self, engine, schema=None, **kw):
+        connection = engine.contextual_connect()
+        return connection.connection.list_schemas()
 
     def has_table(self, connection, table_name, schema=None):
         return table_name in self.get_table_names(connection, schema)
@@ -157,12 +158,9 @@ class KylinDialect(default.DefaultDialect):
     def has_sequence(self, connection, sequence_name, schema=None):
         return False
 
-    def get_columns(self, connection, table_name, schema=None, **kw):
-        if hasattr(connection, 'connection'):
-            conn = connection.connection
-        else:
-            conn = connection.raw_connection()
-        cols = conn.list_columns(table_name)
+    def get_columns(self, engine, table_name, schema=None, **kw):
+        connection = engine.contextual_connect()
+        cols = connection.connection.list_columns(table_name)
         return [self._map_column_type(c) for c in cols]
 
     def _map_column_type(self, column):

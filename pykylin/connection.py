@@ -39,6 +39,12 @@ class Connection(object):
         table = [t for t in tables if t['table_NAME'] == table_NAME][0]
         return table['columns']
 
+    def list_schemas(self):
+        route = 'tables_and_columns'
+        params = {'project': self.project}
+        tables = self.proxy.get(route, params=params)
+        return [t['table_SCHEM'] for t in tables]
+
     def cursor(self):
         return Cursor(self)
 

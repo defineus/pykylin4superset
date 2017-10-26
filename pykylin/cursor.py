@@ -51,7 +51,7 @@ class Cursor(object):
                 c['name'] = 'COUNT'
             c['label'] = str(c['label']).lower()
             c['name'] = str(c['name']).lower()
-            
+
         self.description = [
             [c['label'], c['columnTypeName'],
              c['displaySize'], 0,
