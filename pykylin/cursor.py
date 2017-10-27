@@ -7,7 +7,7 @@ from dateutil import parser
 from .errors import Error
 from .log import logger
 
-count_pattern = re.compile(r'\bcount\b', re.I)
+count_pattern = re.compile(r'\bcount\b')
 pattern = re.compile(r' \d{2}:\d{2}:\d{2}')
 
 class Cursor(object):
