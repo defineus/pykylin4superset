@@ -78,7 +78,7 @@ class Cursor(object):
             elif tpe == 'BIGINT' or tpe == 'INT' or tpe == 'TINYINT':
                 val = int(val)
             elif tpe == 'DOUBLE' or tpe == 'FLOAT' or tpe == 'DECIMAL':
-                val = float(val)
+                val = float(val) if val is not None else float("nan")
             elif tpe == 'BOOLEAN':
                 val = (val == 'true')
             result[i] = val
