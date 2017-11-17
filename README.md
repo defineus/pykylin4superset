@@ -18,10 +18,6 @@ Python 的官方库中没有找到 Kylin 的 SQLAlchemy + DBAPI 实现，但是�
 
 由于 Kylin 在设计上与 Superset 有一些冲突，使用这个 pykylin 会有一些兼容性的问题。我在这个版本的基础上做了一些调整，使其可以兼容 Superset：
 
-**pykylin4superset**：[https://github.com/YorkeCao/pykylin4superset](https://github.com/YorkeCao/pykylin4superset)
-
-[点此下载](https://codeload.github.com/YorkeCao/pykylin4superset/zip/master)其压缩文件，解压后进入其根目录，执行：
-
 ```
 pip install -r ./requirements.txt
 python setup.py install
@@ -72,3 +68,11 @@ python setup.py install
 重装后重启 Superset 即可。
 
 pykylin4superset 才到坑后不定时更新，建议保持最新版。
+
+## 配置开发环境
+git init
+git clone git@github.com:defineus/pykylin4superset.git
+pip install -r ./requirements.txt
+在python命令行中输入import pykylin即为安装成功
+
+
