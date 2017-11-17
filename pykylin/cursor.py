@@ -7,7 +7,7 @@ from dateutil import parser
 from .errors import Error
 from .log import logger
 
-count_pattern = re.compile(r'\bcount\b')
+
 pattern = re.compile(r' \d{2}:\d{2}:\d{2}')
 
 class Cursor(object):
@@ -29,8 +29,6 @@ class Cursor(object):
 
     def execute(self, operation, parameters={}, acceptPartial=True, limit=None, offset=0):
         sql = operation % parameters
-        # 将 'count' 改为 'ccount'。count 为 Kylin 关键字
-        sql = count_pattern.sub("ccount", sql)
         # Kylin 的时间格式不支持 时、分、秒
         sql = pattern.sub('', sql)
         logger.debug(sql)
@@ -46,11 +44,8 @@ class Cursor(object):
 
         column_metas = resp['columnMetas']
 
-        # 还原 'count'，并将关键字改为小写，以兼容 Superset
+        # 将关键字改为小写，以兼容 Superset
         for c in column_metas:
-            if c['label'] == 'CCOUNT':
-                c['label'] = 'COUNT'
-                c['name'] = 'COUNT'
             c['label'] = str(c['label']).lower()
             c['name'] = str(c['name']).lower()
 
